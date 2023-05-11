@@ -13,5 +13,38 @@
 
 
 #define macro MAIN() = takes(0) returns(0) {
+    // Get the function selector
+    0x00
+    calldataload
+    0xE0
+    shr
 
+    // Jump to the implementation of the ADD1 function if the calldata matches the function selector
+    __FUNC_SIG(multiply) eq multiply jumpi
+
+    0x00 0x00 revert
+
+    multiply:
+        MULTIPLY()
+}
+
+#define macro MULTIPLY() = takes(0) returns(0) {
+      0x04 calldataload // [arg1]
+
+      dup1 iszero zero jumpi // if arg1 is zero, return zero
+
+      0x24 calldataload // [arg2, arg1]
+      dup2 dup2 mul     // [mul, arg2, arg1]
+      swap2 dup3        // [mul, arg1, arg2, mul]
+      div eq ret jumpi  // [mul]
+
+      returndatasize dup1 revert  // revert otherwise
+
+      ret:
+        returndatasize mstore
+        0x20 returndatasize return
+
+      zero:
+        returndatasize dup1 mstore
+        0x20 returndatasize return
 }
