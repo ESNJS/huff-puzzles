@@ -2,7 +2,8 @@
 /** 
  *  SIMPLE_STORE HUFF EXERCISE
  *
- *  One of the storage locations available to devs when writing smart contracts is Storage. Its persistent and expensive
+ *  One of the storage locations available to devs when writing smart contracts is 
+ *  Storage. Its persistent and expensive
  *  
  *  The task is to write within the `MAIN` macro below, 2 functions...
  *      - One named `store()` that takes one function argument and stores it in storage slot 0,
